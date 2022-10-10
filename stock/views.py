@@ -1,3 +1,55 @@
 from django.shortcuts import render
+from rest_framework import viewsets , filters
+from django_filters.rest_framework import DjangoFilterBackend
+
+from .models import (
+    Category,
+    Brand,
+    Product,
+    Firm,
+    Transaction
+)
 
 # Create your views here.
+from .serializers import (
+    CategorySerializer,
+    BrandSerializer,
+    ProductSerializer,
+    FirmSerializer
+)
+
+
+class CategoryView(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ["name"]
+
+
+class BrandView(viewsets.ModelViewSet):
+    queryset = Brand.objects.all()
+    serializer_class = BrandSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ["name"]  
+
+class ProductView(viewsets.ModelViewSet):      
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    filterset_fields = ["category", "brand"]  #category ve brand icin filtreleme, settings app filter eklemeyi unutma
+    search_fields = ["name"] 
+
+
+
+
+class FirmView(viewsets.ModelViewSet):
+    queryset = Firm.objects.all()
+    serializer_class = FirmSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ["name"] 
+
+
+
+class TransactionView(viewsets.ModelViewSet):
+    queryset = Transaction.objects.all()
+    serializer_class = ""

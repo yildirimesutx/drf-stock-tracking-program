@@ -27,6 +27,6 @@ def update_stock(sender, instance, **kwargs):
 
     else:
         product.stock -= instance.quantity
-        #burada quantity null gelme durumunu serializers da halledeceğiz
+        #burada quantity null gelme durumunu serializers da halledeceğiz, ayrıca  error msj verebilmemiz icin serializers da yapılacak
 
     product.save()                 
